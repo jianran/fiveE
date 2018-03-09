@@ -1,7 +1,9 @@
 <!--index.wxml-->
+<form bindsubmit="formSubmit" bindreset="formReset">  
+
 <view class="container">
     <view class="tunnel">
-      <text class="tunnel-text">出生日期与时间</text>
+      <text class="tunnel-text">宝宝出生信息</text>
     </view>
     <view class="tunnel-text"> 
       <picker mode="date" value="{{date}}" start="2018-01-01" end="2999-09-01" bindchange="bindDateChange"> 
@@ -12,7 +14,15 @@
       <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"> 
         <view class="picker">时间 : {{time}} </view> 
       </picker> 
-    </view> 
+    </view>
+    <view class="tunnel-text"> 
+      <picker range="{{sex}}" value="{{index}}" bindchange="bindSexChange">
+      <view>
+        性别：{{sex[index]}}
+      </view>
+      </picker>
+    </view>
+
     <!-- 上传图片测试 -->
     <view class="uploader">
         <view class="uploader-text" bindtap="doUpload">
@@ -35,3 +45,4 @@
         </view> 
     </view>
 </view>
+</form>
