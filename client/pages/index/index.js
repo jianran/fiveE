@@ -5,10 +5,20 @@ var util = require('../../utils/util.js')
 
 Page({
     data: {
-        userInfo: {},
-        logged: false,
-        takeSession: false,
-        requestResult: ''
+      date: '2018-03-08',
+      time: '12:00',
+    },
+
+    bindTimeChange: function (e) {
+      this.setData({
+        time: e.detail.value
+      })
+    },
+
+    bindDateChange: function (e) {
+      this.setData({
+        date: e.detail.value
+      })
     },
 
     // 用户登录示例
