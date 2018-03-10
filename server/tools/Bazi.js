@@ -84,6 +84,9 @@ const DiZhi_Strength =
     new ZiStrength('亥', '甲', [0.36, 0.318, 0.342, 0.36, 0.33,  0.3,   0.3,  0.312, 0.318, 0.3, 0.3, 0.36 ]),
     new ZiStrength('亥', '壬', [0.84, 0.77,  0.7,   0.7,  0.728, 0.742, 0.7,  0.7,   0.84,  0.84, 0.724, 0.798 ])
   ];
+/**
+ * 地支的分值对象
+ */
 function ZiStrength(gan, zhi, strengh){
   this.diZhi=gan;
   this.zhiCang = zhi;
