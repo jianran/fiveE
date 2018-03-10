@@ -6,6 +6,7 @@ const MaxYear = 2050;  //农历年
 // 阳历的日期
 const MinDay = new Date(1900, 1, 30, 0, 0, 0, 0);
 const MaxDay = new Date(2049, 12, 31, 0, 0, 0, 0);
+// 中文数字
 const HZNum = "零一二三四五六七八九";
 
 /**
