@@ -139,7 +139,7 @@ BaziComputer.prototype.getWuxing = function(){
      * @return
      */
 BaziComputer.prototype.calculateBazi = function(bazi) {
-  var strengthResult = new double[5];
+  var strengthResult = [0.0, 0.0, 0.0, 0.0, 0.0];
   var monthIndex = this.computeZhiIndex(bazi.charAt(3));
   if (monthIndex == -1) {
     return null;
@@ -182,7 +182,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     strengthResult[wuXing] = value1 + value2;
     //输出一行计算结果
     {
-      var tmpBuf = String.format(":%.3f + %.3f = %.3f\n", value1,value2, (value1 + value2));
+      var tmpBuf = value1 + " + " + value2 + " = " + (value1 + value2) + "\n";
       sResultBuf.append(WuXingTable[wuXing]);
       sResultBuf.append(":\t");
       sResultBuf.append(tmpBuf);
@@ -213,8 +213,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       yiLei += strengthResult[i];
     }
     yiLei -= tongLei;
-    var tmpBuf = String.format("%.3f + %.3f = %.3f\n", strengthResult[fateProp],
-      strengthResult[srcProp], tongLei);
+    var tmpBuf = strengthResult[fateProp] + " + " + strengthResult[srcProp] + " = " + tongLei + "\n" ;
 
     sResultBuf.append("同类：")
       .append(WuXingTable[fateProp])
@@ -223,13 +222,28 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       .append("，");
     sResultBuf.append(tmpBuf);
     //
-    tmpBuf = String.format("%.3f\n", yiLei);
+    tmpBuf = yiLei + "\n";
     sResultBuf.append("异类：总和为 ");
     sResultBuf.append(tmpBuf);
   }
 
   return sResultBuf.toString();
 }
+
+/**
+ * 定义StringBuffer类
+ */
+const StringBuffer = function() {
+  this._strings_ = new Array();
+
+  this.append = function (str) {
+    this._strings_.push(str);
+    return this;
+  };
+  this.toString = function () {
+    return this._strings_.join("");
+  };
+};
 
 /**
  * 计算干的位置
@@ -289,7 +303,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
   if (indexX >= 5) {
     indexX -= 5;
   }
-  indexY = (hour + 1) / 2;
+  indexY = parseInt((hour + 1) / 2 );
   return bazi + TimeGanZhiTable[indexY][indexX];
 }
 
