@@ -309,8 +309,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 }
 
 module.exports = function (ctx, next) {
-  ctx.state.data = { msg: 'Hello World' }
-  ctx.state.data = { msg: new BaziComputer(2018, 3, 16, 10).getWuxing() }
-
+  ctx.state.data = { msg: ctx.request.data.year }
+  //ctx.state.data = { msg: new BaziComputer(2018, 3, 16, 10).getWuxing() }
 }
 
