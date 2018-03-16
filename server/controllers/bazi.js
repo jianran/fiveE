@@ -87,8 +87,8 @@ const DiZhi_Strength =
 /**
  * 地支的分值对象
  */
-var ZiStrength = function(gan, zhi, strengh){
-  this.diZhi=gan;
+function ZiStrength(gan, zhi, strengh){
+  this.diZhi = gan;
   this.zhiCang = zhi;
   this.strength = strengh;
 }
@@ -97,18 +97,19 @@ var ZiStrength = function(gan, zhi, strengh){
  * 计算八字及五行属性的类
  * BaziComputer
  */
-var BaziComputer = function(year, month, day, hour) {
+function BaziComputer(year, month, day, hour) {
   this._year = year;
   this._month = month;
   this._day = day;
   this._hour = hour;
-  this._chineseDate = chineseDateUtils.ChineseDateP(year, month, day);
+  this._chineseDate = chineseDateUtils.buileChineseDate(year, month, day);
   this._sixBaZi = this._chineseDate.getGanZhiString();
   //计算最终的八字
-  this._baZi = computeTimeGan(this._sixBaZi, hour);
+  this._baZi = this.computeTimeGan(this._sixBaZi, hour);
   //计算五行
-  return calculateBazi(this._baZi);
+  this._wuxing = this.calculateBazi(this._baZi);
 }
+
 
 /**
  * 获取阴历的年月日
@@ -139,7 +140,7 @@ BaziComputer.prototype.getWuxing = function(){
      */
 BaziComputer.prototype.calculateBazi = function(bazi) {
   var strengthResult = new double[5];
-  var monthIndex = computeZhiIndex(bazi.charAt(3));
+  var monthIndex = this.computeZhiIndex(bazi.charAt(3));
   if (monthIndex == -1) {
     return null;
   }
@@ -153,7 +154,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     //扫描4个天干
     for (i = 0; i < 8; i += 2) {
       var gan = bazi.charAt(i);
-      var index = computeGanIndex(gan);
+      var index = this.computeGanIndex(gan);
       if (index == -1) {
         return null;
       }
@@ -166,7 +167,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       var zhi = bazi.charAt(i);
       for (var j = 0; j < DiZhi_Strength.length; j++) {
         if (DiZhi_Strength[j].diZhi == zhi) {
-          var zhiCangIndex = computeGanIndex(DiZhi_Strength[j].zhiCang);
+          var zhiCangIndex = this.computeGanIndex(DiZhi_Strength[j].zhiCang);
           if (zhiCangIndex == -1) {
             return null;
           }
@@ -187,13 +188,13 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       sResultBuf.append(tmpBuf);
     }
 
-    return sResultBuf;
+    // return sResultBuf;
   }
 
   //根据日干求命里属性
   var fateProp, srcProp;
   {
-    fateProp = TianGan_WuXingProp[computeGanIndex(bazi.charAt(4))];
+    fateProp = TianGan_WuXingProp[this.computeGanIndex(bazi.charAt(4))];
     if (fateProp == -1) {
       return null;
     }
@@ -294,7 +295,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 
 module.exports = function (ctx, next) {
   ctx.state.data = { msg: 'Hello World' }
-  ctx.state.data = { msg: BaziComputer(2018, 3, 16, 10)}
+  ctx.state.data = { msg: new BaziComputer(2018, 3, 16, 10).getWuxing() }
 
 }
 
