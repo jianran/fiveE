@@ -48,7 +48,7 @@ function ChineseDateP(year, month, day) {
  * month 阳历月 int
  * day   阳历日 int
  */
-function ChineseDate(year, month, day) {
+var ChineseDate = function(year, month, day) {
   this._datetime = new Date(year, month, day, 0, 0, 0, 0);
   this.year = year;
   this.month = month;

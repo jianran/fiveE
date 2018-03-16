@@ -87,7 +87,7 @@ const DiZhi_Strength =
 /**
  * 地支的分值对象
  */
-function ZiStrength(gan, zhi, strengh){
+var ZiStrength = function(gan, zhi, strengh){
   this.diZhi=gan;
   this.zhiCang = zhi;
   this.strength = strengh;
@@ -97,7 +97,7 @@ function ZiStrength(gan, zhi, strengh){
  * 计算八字及五行属性的类
  * BaziComputer
  */
-function BaziComputer(year, month, day, hour) {
+var BaziComputer = function(year, month, day, hour) {
   this._year = year;
   this._month = month;
   this._day = day;
