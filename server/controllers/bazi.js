@@ -303,6 +303,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
   if (indexX >= 5) {
     indexX -= 5;
   }
+  //抛弃小数部分
   indexY = parseInt((hour + 1) / 2 );
   return bazi + TimeGanZhiTable[indexY][indexX];
 }
