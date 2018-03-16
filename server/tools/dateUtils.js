@@ -39,11 +39,6 @@ const GanZhiStartDay = new Date(1899, 12, 22, 0, 0, 0, 0); //阳历年月日，�
 const GanStr = "甲乙丙丁戊己庚辛壬癸";
 const ZhiStr = "子丑寅卯辰巳午未申酉戌亥";
 
-module.exports = {
-  buileChineseDate : function (year, month, day) {
-    return new ChineseDate(year, month, day);
-  }
-}
 
 /**
  * 中国日期，构造函数 
@@ -108,14 +103,14 @@ var ChineseDate = function(year, month, day) {
   this._cDay = offsetDay;
   //计算干支年月日
   this._ganZhi = this.calculateGanZhiString();
-}
+};
 
 /**
  * 返回干支纪年
  */
 ChineseDate.prototype.getGanZhiString = function () {
   return this._ganZhi;
-}
+};
 
 /**
  * 计算干支纪年
@@ -178,7 +173,7 @@ ChineseDate.prototype.calculateGanZhiString = function () {
   var ganZhiDay = GanStr.charAt(ganZhiOffset % 10) + "" + ZhiStr.charAt(ganZhiOffset % 12);
   //最终干支字符串
   return ganZhiYear + ganZhiMonth + ganZhiDay;
-}
+};
 
 /**
  * 获取阴历的年月日
@@ -190,7 +185,7 @@ ChineseDate.prototype.getChineseDateString = function() {
   } else {
     return "农历:" + this._cYear + "年"   + this._cMonth + "月" + this._cDay + "日";
   }
-}
+};
 
 /**
  *
@@ -205,7 +200,7 @@ ChineseDate.prototype.getChineseMonthDays = function(year, month){
   } else {
     return 29;
   }
-}
+};
 /**
  * 测试某位是否为真
  * num        第几位
@@ -218,7 +213,7 @@ ChineseDate.prototype.bitTest32 = function(num, bitpostion){
   } else {
     return true;
   }
-}
+};
 
 /**
  * 求当年农历年天数
@@ -239,7 +234,8 @@ ChineseDate.prototype.getChineseYearDays = function(year){
     i = i >> 1;
   }
   return sumDay + this.getChineseLeapMonthDays(year);
-}
+};
+
 /**
  * 返回农历 y年闰月的天数
  * year 是农历年
@@ -257,7 +253,8 @@ ChineseDate.prototype.getChineseLeapMonthDays = function(year) {
   } else {
     return 0;
   }
-}
+};
+
 /**
  * 返回农历 y年闰哪个月 1-12 , 没闰传回 0
  * year 是农历年
@@ -265,5 +262,13 @@ ChineseDate.prototype.getChineseLeapMonthDays = function(year) {
 ChineseDate.prototype.getChineseLeapMonth = function(year) {
   //最后4位，即8，代表这一年的润月月份，为0则不润。首4位要与末4位搭配使用
   return LunarDateArray[year - MinYear] & 0xF;
-}
+};
 
+/**
+ * 抛出去的方法
+ */
+module.exports = {
+  buildChineseDate: function (year, month, day) {
+    return new ChineseDate(year, month, day);
+  }
+};

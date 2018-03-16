@@ -102,7 +102,7 @@ function BaziComputer(year, month, day, hour) {
   this._month = month;
   this._day = day;
   this._hour = hour;
-  this._chineseDate = chineseDateUtils.buileChineseDate(year, month, day);
+  this._chineseDate = chineseDateUtils.buildChineseDate(year, month, day);
   this._sixBaZi = this._chineseDate.getGanZhiString();
   //计算最终的八字
   this._baZi = this.computeTimeGan(this._sixBaZi, hour);
