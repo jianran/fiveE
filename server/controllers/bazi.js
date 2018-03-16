@@ -182,7 +182,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     strengthResult[wuXing] = value1 + value2;
     //输出一行计算结果
     {
-      var tmpBuf = value1 + " + " + value2 + " = " + (value1 + value2) + "\n";
+      var tmpBuf = value1.toFixed(3) + " + " + value2.toFixed(3) + " = " + (value1 + value2).toFixed(3) + "\n";
       sResultBuf.append(WuXingTable[wuXing]);
       sResultBuf.append(":\t");
       sResultBuf.append(tmpBuf);
@@ -213,7 +213,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       yiLei += strengthResult[i];
     }
     yiLei -= tongLei;
-    var tmpBuf = strengthResult[fateProp] + " + " + strengthResult[srcProp] + " = " + tongLei + "\n" ;
+    var tmpBuf = strengthResult[fateProp].toFixed(3) + " + " + strengthResult[srcProp].toFixed(3) + " = " + tongLei.toFixed(3) + "\n" ;
 
     sResultBuf.append("同类：")
       .append(WuXingTable[fateProp])
@@ -222,7 +222,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
       .append("，");
     sResultBuf.append(tmpBuf);
     //
-    tmpBuf = yiLei + "\n";
+    tmpBuf = yiLei.toFixed(3) + "\n";
     sResultBuf.append("异类：总和为 ");
     sResultBuf.append(tmpBuf);
   }
