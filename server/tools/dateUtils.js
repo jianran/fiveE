@@ -39,6 +39,9 @@ const GanZhiStartDay = new Date(1899, 12, 22, 0, 0, 0, 0); //阳历年月日，�
 const GanStr = "甲乙丙丁戊己庚辛壬癸";
 const ZhiStr = "子丑寅卯辰巳午未申酉戌亥";
 
+function ChineseDateP(year, month, day) {
+  return new ChineseDate(year, month, day);
+}
 /**
  * 中国日期，构造函数 
  * year  阳历年 int

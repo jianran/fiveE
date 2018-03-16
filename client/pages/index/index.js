@@ -33,8 +33,9 @@ Page({
       var that = this;
       var formData = e.detail.value;
       wx.request({
-        url: 'http://test.com:8080/test/socket.php?msg=2',
+        url: config.service.baziUrl,
         data: formData,
+        method: 'POST',
         header: {
           'Content-Type': 'application/json'
         },

@@ -10,11 +10,10 @@ var config = {
     // 下面的地址配合云端 Demo 工作
     service: {
         host,
-
-        //五行服务
-        fiveScore: `${host}/weapp/fiveScore`,
         // 上传图片接口
-        uploadUrl: `${host}/weapp/upload`
+        uploadUrl: `${host}/weapp/upload`,
+
+        baziUrl: `${host}/weapp/bazi`
     }
 };
 
