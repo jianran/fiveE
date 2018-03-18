@@ -8,7 +8,8 @@ Page({
       date: '2018-03-08',
       time: '12:00',
       sex: ['男','女'],
-      index: 0
+      index: 0,
+      fiveDesc: ''
     },
 
     bindTimeChange: function (e) {
@@ -31,7 +32,8 @@ Page({
 
     formSubmit: function (e) {
       var that = this;
-      var formData = e.detail.value;
+      var formData = this.data;
+      console.log(formData)
       wx.request({
         url: config.service.baziUrl,
         data: formData,
@@ -40,12 +42,13 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
-          console.log(res.data)
+          console.log(res.data);
+          that.setData({ fiveDesc: res.data});
         }
       })
     },
     formReset: function () {
-      this.setData({ date: '2018-03-08', time: '12:00', index: 0 })
+      this.setData({ date: '2018-03-08', time: '12:00', index: 0, fiveDesc: '' })
     },
 
 

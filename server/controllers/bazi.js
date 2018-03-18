@@ -146,8 +146,10 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
   }
 
   var sResultBuf = new StringBuffer();
+  sResultBuf.append("八字：");
   sResultBuf.append(bazi).append("\n\n");
 
+  sResultBuf.append("五行：");
   for (var wuXing = 0; wuXing < 5; wuXing++) {
     var value1 = 0.0, value2 = 0.0;
     var i;
@@ -227,6 +229,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     sResultBuf.append(tmpBuf);
   }
 
+  sResultBuf.append("\n 五行的相生关系为：金生水，水生木，木生火，火生土，土生金；得到了同类和异类的强度值以后，一个基本的判断是，若两者的数值比较接近，则说明该八字比较平衡，也暗示人生平顺，取名取命属相生的字，或者命属的字；若两者数值相差较大（比如，大于1，甚至大于2），则说明五行不平衡，可以通过名字来弥补，五行中缺什么就补什么，或者将来找对象时候通过婚姻来补平；");
   return sResultBuf.toString();
 }
 
@@ -309,7 +312,21 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 }
 
 module.exports = function (ctx, next) {
-  ctx.state.data = { msg: ctx.request.data.year }
-  //ctx.state.data = { msg: new BaziComputer(2018, 3, 16, 10).getWuxing() }
+  this.year = ctx.request.body.date.substring(0,4);
+  this.month = ctx.request.body.date.substring(5, 7);
+  if (this.month.indexOf('0') != -1) {
+    this.month = this.month.substring(1, 1);
+  }
+  this.day = ctx.request.body.date.substring(8, 10);
+  if (this.day.indexOf('0') != -1) {
+    this.day = this.day.substring(1, 1);
+  }
+  this.hour = ctx.request.body.time.substring(0, 2);
+  if (this.hour.indexOf('0') != -1) {
+    this.hour = this.hour.substring(1, 1);
+  }
+
+
+  ctx.body = new BaziComputer(parseInt(this.year), parseInt(this.month), parseInt(this.day), parseInt(this.hour)).getWuxing();
 }
 

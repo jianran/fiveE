@@ -3,46 +3,34 @@
 
 <view class="container">
     <view class="tunnel">
-      <text class="tunnel-text">宝宝出生信息</text>
+      <view class="title">宝宝出生信息</view>
     </view>
     <view class="tunnel-text"> 
-      <picker mode="date" value="{{date}}" start="2018-01-01" end="2999-09-01" bindchange="bindDateChange"> 
-        <view class="picker"> 日期: {{date}} </view> 
+    <view class="name">日期:</view> 
+      <picker mode="date" value="{{date}}" start="1900-01-01" end="2999-09-01" bindchange="bindDateChange"> 
+        <view class="picker">{{date}} </view> 
       </picker>
     </view> 
     <view class="tunnel-text"> 
+      <view class="name">时间:</view> 
       <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"> 
-        <view class="picker">时间 : {{time}} </view> 
+        <view class="picker-time">{{time}} </view> 
       </picker> 
     </view>
-    <view class="tunnel-text"> 
-      <picker range="{{sex}}" value="{{index}}" bindchange="bindSexChange">
-      <view>
-        性别：{{sex[index]}}
-      </view>
-      </picker>
-    </view>
+    <view class="tunnel-text"> </view>
+</view>
 
+<view class="container">
+  <view class="tunnel-text">  
+       <button class="button" formType="submit">提交</button>  
+      <button class="button" formType="reset">清空</button>  
+    </view> 
+</view>
+
+<view class="container">
     <!-- 上传图片测试 -->
-    <view class="uploader">
-        <view class="uploader-text" bindtap="doUpload">
-            <text>上传宝宝图片</text>
-        </view>
-        <view class="uploader-container" wx:if="{{imgUrl}}">
-            <image
-                class="uploader-image"
-                src="{{imgUrl}}"
-                mode="aspectFit"
-                bindtap="previewImg"
-            ></image>
-        </view>
-    </view>
-    <!-- 上传图片测试 -->
-    <view class="container">
-        <view class="tunnel-text">  
-            <button class="tunnel-text" formType="submit">提交</button>  
-            <button class="tunnel-text" formType="reset">清空</button>  
-        </view> 
-    </view>
+    <view class="tunnel">
+          <text class="tunnel-text">{{fiveDesc}}</text>
+     </view>
 </view>
 </form>
