@@ -19,6 +19,7 @@ Page({
     },
 
     bindDateChange: function (e) {
+      console.log(e.detail.value);
       this.setData({
         date: e.detail.value
       })
@@ -33,7 +34,6 @@ Page({
     formSubmit: function (e) {
       var that = this;
       var formData = this.data;
-      console.log(formData)
       wx.request({
         url: config.service.baziUrl,
         data: formData,
@@ -42,7 +42,6 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
-          console.log(res.data);
           that.setData({ fiveDesc: res.data});
         }
       })

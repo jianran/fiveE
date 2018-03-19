@@ -312,21 +312,9 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 }
 
 module.exports = function (ctx, next) {
-  this.year = ctx.request.body.date.substring(0,4);
-  this.month = ctx.request.body.date.substring(5, 7);
-  if (this.month.indexOf('0') != -1) {
-    this.month = this.month.substring(1, 1);
-  }
-  this.day = ctx.request.body.date.substring(8, 10);
-  if (this.day.indexOf('0') != -1) {
-    this.day = this.day.substring(1, 1);
-  }
-  this.hour = ctx.request.body.time.substring(0, 2);
-  if (this.hour.indexOf('0') != -1) {
-    this.hour = this.hour.substring(1, 1);
-  }
+  let date = new Date(ctx.request.body.date + ' ' + ctx.request.body.time);
 
-
-  ctx.body = new BaziComputer(parseInt(this.year), parseInt(this.month), parseInt(this.day), parseInt(this.hour)).getWuxing();
+  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours()).getWuxing();
+  ctx.body = result;
 }
 
