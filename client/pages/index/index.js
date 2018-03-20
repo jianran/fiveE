@@ -3,10 +3,15 @@ var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
 
+var date = new Date()
+var dyear = date.getFullYear() ;
+var dmonth = date.getMonth() + 1 > 9 ? "" + (date.getMonth() + 1): "0" + (date.getMonth() + 1);
+var ddate = date.getDate() + 1 > 9 ? "" + (date.getDate() + 1) : "0" + date.getDate() + 1;
+
 Page({
     data: {
-      date: '2018-03-08',
-      time: '12:00',
+      date: dyear + "-" + dmonth + "-" + ddate,
+      time: new Date().getHours() + ":" + new Date().getMinutes(),
       sex: ['男','女'],
       index: 0,
       fiveTitle: '',
@@ -20,7 +25,6 @@ Page({
     },
 
     bindDateChange: function (e) {
-      console.log(e.detail.value);
       this.setData({
         date: e.detail.value
       })
