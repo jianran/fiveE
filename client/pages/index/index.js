@@ -9,6 +9,7 @@ Page({
       time: '12:00',
       sex: ['男','女'],
       index: 0,
+      fiveTitle: '',
       fiveDesc: ''
     },
 
@@ -42,12 +43,13 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
-          that.setData({ fiveDesc: res.data});
+          var fa = res.data.split("@@@@@");
+          that.setData({fiveDesc: fa[1], fiveTitle: fa[0]});
         }
       })
     },
     formReset: function () {
-      this.setData({ date: '2018-03-08', time: '12:00', index: 0, fiveDesc: '' })
+      this.setData({ date: '2018-03-08', time: '12:00', index: 0, fiveDesc: '', fiveTitle: '' })
     },
 
 

@@ -27,6 +27,15 @@ page {
     font-size: 14px;
     margin-top: 50rpx;
 }
+
+.five-title {
+    background: #FFF;  
+     color: red;
+     text-align:center;
+     margin-top: 50rpx;
+     margin-bottom: 50rpx;
+     margin-left: 50rpx;
+}
 .userinfo, .uploader, .tunnel {
     margin-top: 40rpx;
     height: 140rpx;

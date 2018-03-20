@@ -30,6 +30,7 @@
 <view class="container">
     <!-- 上传图片测试 -->
     <view class="tunnel">
+          <text class="five-title">{{fiveTitle}}</text>
           <text class="tunnel-text">{{fiveDesc}}</text>
      </view>
 </view>

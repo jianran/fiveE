@@ -146,10 +146,10 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
   }
 
   var sResultBuf = new StringBuffer();
-  sResultBuf.append("八字：");
-  sResultBuf.append(bazi).append("\n\n");
+  sResultBuf.append("宝宝八字是：");
+  sResultBuf.append(bazi).append("\n");
 
-  sResultBuf.append("五行：");
+  sResultBuf.append("八字天干地支五行强度分别为：");
   for (var wuXing = 0; wuXing < 5; wuXing++) {
     var value1 = 0.0, value2 = 0.0;
     var i;
@@ -184,10 +184,11 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     strengthResult[wuXing] = value1 + value2;
     //输出一行计算结果
     {
-      var tmpBuf = value1.toFixed(3) + " + " + value2.toFixed(3) + " = " + (value1 + value2).toFixed(3) + "\n";
+      //var tmpBuf = value1.toFixed(3) + " + " + value2.toFixed(3) + " = " + (value1 + value2).toFixed(3) + "，";
       sResultBuf.append(WuXingTable[wuXing]);
-      sResultBuf.append(":\t");
-      sResultBuf.append(tmpBuf);
+      sResultBuf.append(":");
+      sResultBuf.append((value1 + value2).toFixed(3));
+      sResultBuf.append("；");
     }
 
     // return sResultBuf;
@@ -200,9 +201,9 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     if (fateProp == -1) {
       return null;
     }
-    sResultBuf.append("\n命属");
+    sResultBuf.append("根据出生日期的天干知道宝宝命属：");
     sResultBuf.append(WuXingTable[fateProp]);
-    sResultBuf.append("\n\n");
+    sResultBuf.append("，");
   }
 
   //求同类和异类的强度值
@@ -210,27 +211,91 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
   {
     var tongLei = strengthResult[fateProp] + strengthResult[srcProp];
     var yiLei = 0.0;
-
+    var minYilei = 100;
+    var minIndex = 0;
     for (var i = 0; i < 5; i++){
       yiLei += strengthResult[i];
+      if (strengthResult[i] < minYilei) {
+        minYilei = strengthResult[i];
+        minIndex = i;
+      }
     }
     yiLei -= tongLei;
-    var tmpBuf = strengthResult[fateProp].toFixed(3) + " + " + strengthResult[srcProp].toFixed(3) + " = " + tongLei.toFixed(3) + "\n" ;
-
-    sResultBuf.append("同类：")
+    sResultBuf.append("跟");
+    sResultBuf.append(WuXingTable[fateProp]);
+    sResultBuf.append("五行同类的强度值：")
       .append(WuXingTable[fateProp])
       .append("+")
       .append(WuXingTable[srcProp])
-      .append("，");
-    sResultBuf.append(tmpBuf);
+      .append("，").append(tongLei.toFixed(3)).append("；");;
     //
-    tmpBuf = yiLei.toFixed(3) + "\n";
-    sResultBuf.append("异类：总和为 ");
-    sResultBuf.append(tmpBuf);
+    tmpBuf =  + "；";
+    sResultBuf.append("跟");
+    sResultBuf.append(WuXingTable[fateProp]);
+    sResultBuf.append("五行异类的强度值：")
+    sResultBuf.append(yiLei.toFixed(3));
+    sResultBuf.append("；");
+
+    var finalNameFive = "";
+    var fiveDesc = "";
+    if (yiLei - tongLei >= 1) {
+      if (strengthResult[fateProp] < strengthResult[srcProp]) {
+        sResultBuf.append("因为跟");
+        sResultBuf.append(WuXingTable[fateProp]);
+        sResultBuf.append("异类的五行强度较大，需取跟命属");
+        sResultBuf.append(WuXingTable[fateProp]);
+        sResultBuf.append("五行属性相同的字，以平衡五行。");
+        finalNameFive = WuXingTable[fateProp];
+        fiveDesc = "五行缺" + WuXingTable[fateProp];
+      } else {
+        sResultBuf.append("因为跟");
+        sResultBuf.append(WuXingTable[fateProp]);
+        sResultBuf.append("异类的五行强度较大，需取跟命属");
+        sResultBuf.append(WuXingTable[fateProp]);
+        sResultBuf.append("属性五行相生，五行属性为");
+        sResultBuf.append(WuXingTable[srcProp]);
+        sResultBuf.append("的字，以平衡五行。");
+        finalNameFive = WuXingTable[srcProp];
+        fiveDesc = "五行缺" + WuXingTable[srcProp];
+      }
+    } else if (yiLei - tongLei <= -1) {
+      sResultBuf.append("因为跟");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("异类的五行强度较小，需取跟命属");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("五行属性相异，五行属性为");
+      sResultBuf.append(WuXingTable[minIndex]);
+      sResultBuf.append("的字，以平衡五行。");
+      finalNameFive = WuXingTable[minIndex];
+      fiveDesc = "五行缺" + WuXingTable[minIndex];
+    } else if (yiLei > tongLei) {
+      sResultBuf.append("因为跟");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("同类和异类的五行强度相差不大，预示人生平顺，无需讲究五行，或者可取跟宝宝命属");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("五行相同的字，或者五行相生属性为");
+      sResultBuf.append(WuXingTable[srcProp]);
+      sResultBuf.append("的字，相得益彰。");
+      finalNameFive = "无需特意讲究五行；";
+      fiveDesc = "五行平衡！";
+    } else {
+      sResultBuf.append("因为跟");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("同类和异类的五行强度相差不大，预示人生平顺，无需讲究五行，或者可取跟宝宝命属");
+      sResultBuf.append(WuXingTable[fateProp]);
+      sResultBuf.append("五行属性相异，五行属性为");
+      sResultBuf.append(WuXingTable[minIndex]);
+      sResultBuf.append("的字，以平衡微小差异。");
+      finalNameFive = "无需特意讲究五行；";
+      fiveDesc = "五行平衡！";
+    }
   }
 
-  sResultBuf.append("\n 五行的相生关系为：金生水，水生木，木生火，火生土，土生金；得到了同类和异类的强度值以后，一个基本的判断是，若两者的数值比较接近，则说明该八字比较平衡，也暗示人生平顺，取名取命属相生的字，或者命属的字；若两者数值相差较大（比如，大于1，甚至大于2），则说明五行不平衡，可以通过名字来弥补，五行中缺什么就补什么，或者将来找对象时候通过婚姻来补平；");
-  return sResultBuf.toString();
+  sResultBuf.append("\n 解析：五行的相生关系为：金生水，水生木，木生火，火生土，土生金；得到了同类和异类的强度值以后，一个基本的判断是，若两者的数值比较接近，则说明该八字比较平衡，也暗示人生平顺，取名取命属相生的字，或者命属的字；若两者数值相差较大（比如，大于1，甚至大于2），则说明五行不平衡，可以通过名字来弥补，五行中缺什么就补什么，或者将来找对象时候通过婚姻来补平；");
+  if (fiveDesc == "五行平衡！") {
+    return fiveDesc + finalNameFive + "@@@@@" + sResultBuf.toString();
+  }
+  return fiveDesc + "，取名取五行为" + finalNameFive + "的字；" + "@@@@@" + sResultBuf.toString();
 }
 
 /**
