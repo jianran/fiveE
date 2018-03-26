@@ -6,7 +6,7 @@ var util = require('../../utils/util.js')
 var date = new Date()
 var dyear = date.getFullYear() ;
 var dmonth = date.getMonth() + 1 > 9 ? "" + (date.getMonth() + 1): "0" + (date.getMonth() + 1);
-var ddate = date.getDate() + 1 > 9 ? "" + (date.getDate() + 1) : "0" + date.getDate() + 1;
+var ddate = date.getDate() > 9 ? "" + date.getDate() : "0" + date.getDate();
 
 Page({
     data: {
@@ -47,8 +47,13 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
-          var fa = res.data.split("@@@@@");
-          that.setData({fiveDesc: fa[1], fiveTitle: fa[0]});
+          if (res.data.split === undefined) {
+            console.log(res.data)
+            that.setData({ fiveDesc: "" + res.data.error, fiveTitle: "error" });
+          } else {
+            var fa = res.data.split("@@@@@");
+            that.setData({ fiveDesc: fa[1], fiveTitle: fa[0] });
+          }
         }
       })
     },

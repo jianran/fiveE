@@ -379,7 +379,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 module.exports = function (ctx, next) {
   let date = new Date(ctx.request.body.date + ' ' + ctx.request.body.time);
 
-  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours()).getWuxing();
+  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours() - 1).getWuxing();
   ctx.body = result;
 }
 
