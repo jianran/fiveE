@@ -97,6 +97,10 @@ function ZiStrength(gan, zhi, strengh){
  * BaziComputer
  */
 function BaziComputer(year, month, day, hour, dtype) {
+  if (hour < 0 || hour > 23) {
+    throw new Error("Error: 时辰参数不正确，应为0~23之间的一个整点数。");
+    return ;
+  }
   this._year = year;
   this._month = month;
   this._day = day;
@@ -351,7 +355,7 @@ BaziComputer.prototype.computeZhiIndex = function(zhi) {
 /**
  * 根据出生年月日的干支计算时辰干支
  * 输入参数：bazi，年月日的干支，即八字中的前六个字
- * 输入参数：hour，出生时间的小时数，-1~22
+ * 输入参数：hour，出生时间的小时数，0~23
  * 输出结果：八字字符串，Unicode编码
  */
 BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
@@ -378,7 +382,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 module.exports = function (ctx, next) {
   let date = new Date(ctx.request.body.date + ' ' + ctx.request.body.time);
 
-  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours() - 1, ctx.request.body.index).getWuxing();
+  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), ctx.request.body.index).getWuxing();
   ctx.body = result;
 }
 
