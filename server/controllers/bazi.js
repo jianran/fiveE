@@ -374,15 +374,17 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
   if (indexX >= 5) {
     indexX -= 5;
   }
+  //整点之后算为下一个时辰
+  hour = (hour + 1) % 24;
   //抛弃小数部分
-  indexY = parseInt((hour + 1.0) / 2.0 );
+  indexY = parseInt(hour / 2.0);
   return bazi + TimeGanZhiTable[indexY][indexX];
 }
 
 module.exports = function (ctx, next) {
   let date = new Date(ctx.request.body.date + ' ' + ctx.request.body.time);
-
-  let result = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), ctx.request.body.index).getWuxing();
+  let bazi = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), ctx.request.body.index);
+  let result = bazi.getWuxing();
   ctx.body = result;
 }
 
