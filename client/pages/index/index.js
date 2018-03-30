@@ -14,6 +14,10 @@ Page({
       time: new Date().getHours() + ":" + new Date().getMinutes(),
       sex: ['公历','阴历'],
       index: 0,
+      yuns: [
+        { name: '是', value: '1', checked: 'true' },
+        { name: '否', value: '0' }
+      ],
       fiveTitle: '',
       fiveDesc: ''
     },
