@@ -46,7 +46,7 @@ const ZhiStr = "子丑寅卯辰巳午未申酉戌亥";
  * month 阳历月 int
  * day   阳历日 int
  */
-var ChineseDate = function(year, month, day) {
+var ChineseDate = function(year, month, day, dtype) {
   this._datetime = new Date(year, month, day, 0, 0, 0, 0);
   this.year = year;
   this.month = month;
@@ -55,52 +55,54 @@ var ChineseDate = function(year, month, day) {
   this._cYear = year;
   this._cMonth = month;
   this._cDay = day;
-
-  //设置转换阴历
-  //转换年， 计算两天的基本差距[即1900到当天的天差]
-  var offsetDay = (this._datetime - MinDay) / (24 * 60 * 60 * 1000); 
-  var temp = 0;  
-  var last = 0;
-  for (this._cYear = MinYear; this._cYear <= MaxYear; this._cYear++) {
-    temp = this.getChineseYearDays(this._cYear);  //求当年农历年天数
-    last = offsetDay - temp;
-    if (last < 1) {
-      break;
-    } else {
-      offsetDay = last;
+  if (dtype == "0" || dtype == 0) {
+    //设置转换阴历
+    //转换年， 计算两天的基本差距[即1900到当天的天差]
+    var offsetDay = (this._datetime - MinDay) / (24 * 60 * 60 * 1000);
+    var temp = 0;
+    var last = 0;
+    for (this._cYear = MinYear; this._cYear <= MaxYear; this._cYear++) {
+      temp = this.getChineseYearDays(this._cYear);  //求当年农历年天数
+      last = offsetDay - temp;
+      if (last < 1) {
+        break;
+      } else {
+        offsetDay = last;
+      }
     }
+
+    this._cIsLeapYear = false; //当月是否闰月
+    var leapMonth = this.getChineseLeapMonth(this._cYear);//计算该年闰哪个月
+    //设定当年是否有闰月
+    if (leapMonth > 0) {
+      _cIsLeapYear = true;
+    }
+    //转换阴历月 与 阴历日
+    this._cIsLeapMonth = false;  //当月是否闰月
+    var idxMonth;
+    for (idxMonth = 1; idxMonth <= 12; idxMonth++) {
+      //闰月
+      if (leapMonth > 0
+        && idxMonth == (leapMonth + 1)
+        && this._cIsLeapMonth == false) {
+        this._cIsLeapMonth = true;
+        idxMonth = idxMonth - 1;
+        temp = this.getChineseLeapMonthDays(this._cYear); //计算闰月天数
+      } else {
+        this._cIsLeapMonth = false;
+        temp = this.getChineseMonthDays(this._cYear, idxMonth);//计算非闰月天数
+      }
+      last = offsetDay - temp;
+      if (last <= 0) {
+        break;
+      } else {
+        offsetDay = last;
+      }
+    }
+    this._cMonth = idxMonth;
+    this._cDay = offsetDay;
   }
 
-  this._cIsLeapYear = false; //当月是否闰月
-  var leapMonth = this.getChineseLeapMonth(this._cYear);//计算该年闰哪个月
-  //设定当年是否有闰月
-  if (leapMonth > 0) {
-    _cIsLeapYear = true;
-  } 
-  //转换阴历月 与 阴历日
-  this._cIsLeapMonth = false;  //当月是否闰月
-  var idxMonth;
-  for (idxMonth = 1; idxMonth <= 12; idxMonth++) {
-    //闰月
-    if (leapMonth > 0
-      && idxMonth == (leapMonth + 1)
-      && this._cIsLeapMonth == false) {
-      this._cIsLeapMonth = true;
-      idxMonth = idxMonth - 1;
-      temp = this.getChineseLeapMonthDays(this._cYear); //计算闰月天数
-    } else {
-      this._cIsLeapMonth = false;
-      temp = this.getChineseMonthDays(this._cYear, idxMonth);//计算非闰月天数
-    }
-    last = offsetDay - temp;
-    if (last <= 0) {
-      break;
-    } else {
-      offsetDay = last;
-    }
-  }
-  this._cMonth = idxMonth;
-  this._cDay = offsetDay;
   //计算干支年月日
   this._ganZhi = this.calculateGanZhiString();
 };
@@ -268,7 +270,7 @@ ChineseDate.prototype.getChineseLeapMonth = function(year) {
  * 抛出去的方法
  */
 module.exports = {
-  buildChineseDate: function (year, month, day) {
-    return new ChineseDate(year, month, day);
+  buildChineseDate: function (year, month, day, dtype) {
+    return new ChineseDate(year, month, day, dtype);
   }
 };

@@ -12,7 +12,7 @@ Page({
     data: {
       date: dyear + "-" + dmonth + "-" + ddate,
       time: new Date().getHours() + ":" + new Date().getMinutes(),
-      sex: ['男','女'],
+      sex: ['公历','阴历'],
       index: 0,
       fiveTitle: '',
       fiveDesc: ''
@@ -47,6 +47,7 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
+          console.log(formData)
           if (res.data.split === undefined) {
             console.log(res.data)
             that.setData({ fiveDesc: "" + res.data.error, fiveTitle: "error" });

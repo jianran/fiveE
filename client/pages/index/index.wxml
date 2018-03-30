@@ -6,6 +6,12 @@
       <view class="title">宝宝出生信息</view>
     </view>
     <view class="tunnel-text"> 
+      <view class="name">公/阴历:</view> 
+     <picker range="{{sex}}" value="{{index}}" bindchange="bindSexChange">
+        <view class="picker-time">{{sex[index]}}</view> 
+      </picker> 
+    </view>
+    <view class="tunnel-text"> 
     <view class="name">日期:</view> 
       <picker mode="date" value="{{date}}" start="1900-01-01" end="2999-09-01" bindchange="bindDateChange"> 
         <view class="picker">{{date}} </view> 
