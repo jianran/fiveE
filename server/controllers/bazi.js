@@ -1,7 +1,6 @@
 /**
  * 八字的计算
  */
-
 //引入计算阴历，及八字的日期工具
 const chineseDateUtils = require("../tools/dateUtils")
 
@@ -102,7 +101,7 @@ function BaziComputer(year, month, day, hour, dtype) {
   this._month = month;
   this._day = day;
   this._hour = hour;
-  this._chineseDate = chineseDateUtils.buildChineseDate(year, month, day, dtype);
+  this._chineseDate = chineseDateUtils.buildChineseDate(year, month, day, dtype, false);
   this._sixBaZi = this._chineseDate.getGanZhiString();
   //计算最终的八字
   this._baZi = this.computeTimeGan(this._sixBaZi, hour);
