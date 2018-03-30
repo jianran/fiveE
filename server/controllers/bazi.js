@@ -375,7 +375,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
     indexX -= 5;
   }
   //抛弃小数部分
-  indexY = parseInt((hour + 1) / 2 );
+  indexY = parseInt((hour + 1.0) / 2.0 );
   return bazi + TimeGanZhiTable[indexY][indexX];
 }
 
