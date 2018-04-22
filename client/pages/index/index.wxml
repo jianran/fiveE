@@ -19,12 +19,9 @@
     </view>
     <view class="tunnel-text"> 
       <view class="yun-name">是否闰月:</view> 
-      <radio-group bindchange="listenerRadioGroup">
-<!--label通常与radio和checkbox结合使用-->
-        <label style="display: flex" wx:for-items="{{yuns}}">
-          <radio value="{{item.value}}" checked="{{item.checked}}"/><view class="picker-yun">{{item.name}}</view>
-        </label>
-      </radio-group>
+      <picker range="{{yuns}}" value="{{yindex}}" bindchange="bindYunChange">
+        <view class="picker-time">{{yuns[yindex]}}</view> 
+      </picker>
     </view> 
     <view class="tunnel-text"> 
       <view class="name">时间:</view> 

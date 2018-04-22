@@ -96,7 +96,7 @@ function ZiStrength(gan, zhi, strengh){
  * 计算八字及五行属性的类
  * BaziComputer
  */
-function BaziComputer(year, month, day, hour, dtype) {
+function BaziComputer(year, month, day, hour, dtype, mtype) {
   if (hour < 0 || hour > 23) {
     throw new Error("Error: 时辰参数不正确，应为0~23之间的一个整点数。");
     return ;
@@ -105,7 +105,7 @@ function BaziComputer(year, month, day, hour, dtype) {
   this._month = month;
   this._day = day;
   this._hour = hour;
-  this._chineseDate = chineseDateUtils.buildChineseDate(year, month, day, dtype, false);
+  this._chineseDate = chineseDateUtils.buildChineseDate(year, month, day, dtype, mtype == 1);
   this._sixBaZi = this._chineseDate.getGanZhiString();
   //计算最终的八字
   this._baZi = this.computeTimeGan(this._sixBaZi, hour);
@@ -383,7 +383,7 @@ BaziComputer.prototype.computeTimeGan = function( bazi,  hour) {
 
 module.exports = function (ctx, next) {
   let date = new Date(ctx.request.body.date + ' ' + ctx.request.body.time);
-  let bazi = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), ctx.request.body.index);
+  let bazi = new BaziComputer(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), ctx.request.body.index, ctx.request.body.yindex);
   let result = bazi.getWuxing();
   ctx.body = result;
 }

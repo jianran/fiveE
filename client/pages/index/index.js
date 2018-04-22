@@ -7,17 +7,17 @@ var date = new Date()
 var dyear = date.getFullYear() ;
 var dmonth = date.getMonth() + 1 > 9 ? "" + (date.getMonth() + 1): "0" + (date.getMonth() + 1);
 var ddate = date.getDate() > 9 ? "" + date.getDate() : "0" + date.getDate();
+var dhour = date.getHours() > 9 ? "" + date.getHours() : "0" + date.getHours();
+var dminuter = date.getMinutes() > 9 ? "" + date.getMinutes() : "0" + date.getMinutes();
 
 Page({
     data: {
       date: dyear + "-" + dmonth + "-" + ddate,
-      time: new Date().getHours() + ":" + new Date().getMinutes(),
+      time: dhour + ":" + dminuter,
       sex: ['公历','阴历'],
       index: 0,
-      yuns: [
-        { name: '是', value: '1', checked: 'true' },
-        { name: '否', value: '0' }
-      ],
+      yuns: ['否','是'],
+      yindex: 0,
       fiveTitle: '',
       fiveDesc: ''
     },
@@ -37,6 +37,12 @@ Page({
     bindSexChange: function (e) {
       this.setData({
         index: e.detail.value
+      })
+    },
+
+    bindYunChange: function (e) {
+      this.setData({
+        yindex: e.detail.value
       })
     },
 
