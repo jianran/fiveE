@@ -20,7 +20,7 @@
     <view class="tunnel-text"> 
       <view class="yun-name">是否闰月:</view> 
       <picker range="{{yuns}}" value="{{yindex}}" bindchange="bindYunChange">
-        <view class="picker-time">{{yuns[yindex]}}</view> 
+        <view class="picker-yun">{{yuns[yindex]}}</view> 
       </picker>
     </view> 
     <view class="tunnel-text"> 

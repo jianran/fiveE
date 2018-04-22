@@ -23,13 +23,14 @@ page {
 }
 
 .picker-yun {
-  margin-right: 300rpx;
+  margin-right: 320rpx;
   flex-direction: column;
 }
 
 .yun-name {
   background: #FFF;  width:30%;   color: #007AFF; text-align:center; 
 }
+
 
 .button {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
