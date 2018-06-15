@@ -2,6 +2,11 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
+var drawPieChart = require('../../utils/drawPieChart.js')
+var animation = require('../../utils/animation.js')
+
+
+
 
 var date = new Date()
 var dyear = date.getFullYear() ;
@@ -64,6 +69,19 @@ Page({
           } else {
             var fa = res.data.split("@@@@@");
             that.setData({ fiveDesc: fa[1], fiveTitle: fa[0] });
+            const series = [
+              { data: 2.64 * 100, color: '#ff0000' },
+              { data: 1 * 100, color: '#90ed7d' },
+              { data: 1.2 * 100, color: '#f7a35c' },
+              { data: 0.6 * 100, color: '#7cb5ec' },
+              { data: 4.8 * 100, color: '#434348' }
+            ];
+            animation.play({
+              duration: 1000,
+              onProcess: (process) => {
+                drawPieChart.drawPieAngle(series, process);
+              }
+            });            
           }
         }
       })

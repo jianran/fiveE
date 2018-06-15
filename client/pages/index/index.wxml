@@ -43,6 +43,7 @@
     <!-- 上传图片测试 -->
     <view class="tunnel">
           <text class="five-title">{{fiveTitle}}</text>
+          <canvas style="width: 300px; height: 160px;" canvas-id="firstCanvas"></canvas>
           <text class="tunnel-text">{{fiveDesc}}</text>
      </view>
 </view>

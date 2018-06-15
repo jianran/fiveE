@@ -162,3 +162,9 @@ page {
     line-height: 36rpx;
     word-break: break-all;
 }
+
+.canvas {
+    width: 640px;
+    height: 600px;
+    transform: scale(0.5)
+}
