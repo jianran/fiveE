@@ -197,6 +197,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
     // return sResultBuf;
   }
 
+
   //根据日干求命里属性
   var fateProp, srcProp;
   {
@@ -211,19 +212,25 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
 
   //求同类和异类的强度值
   srcProp = GenerationSourceTable[fateProp];
+  var valueDes = ""
+  valueDes += fateProp + ":" + strengthResult[fateProp] + ";";
+  valueDes += srcProp + ":" + strengthResult[srcProp] + ";";
+
   {
     var tongLei = strengthResult[fateProp] + strengthResult[srcProp];
     var yiLei = 0.0;
     var minYilei = 100;
     var minIndex = 0;
     for (var i = 0; i < 5; i++){
-      yiLei += strengthResult[i];
-      if (strengthResult[i] < minYilei) {
-        minYilei = strengthResult[i];
-        minIndex = i;
+      if (i != fateProp && i != srcProp) {
+        yiLei += strengthResult[i];
+        if (strengthResult[i] < minYilei) {
+          minYilei = strengthResult[i];
+          minIndex = i;
+        }
+        valueDes += i + ":" + strengthResult[i] + ";";
       }
     }
-    yiLei -= tongLei;
     sResultBuf.append("跟");
     sResultBuf.append(WuXingTable[fateProp]);
     sResultBuf.append("五行同类的强度值：")
@@ -298,7 +305,7 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
   if (fiveDesc == "五行平衡！") {
     return fiveDesc + finalNameFive + "@@@@@" + sResultBuf.toString();
   }
-  return fiveDesc + "，取名取五行为" + finalNameFive + "的字；" + "@@@@@" + sResultBuf.toString();
+  return fiveDesc + "，取名取五行为" + finalNameFive + "的字；" + "@@@@@" + sResultBuf.toString() + "@@@@@" + valueDes;
 }
 
 /**

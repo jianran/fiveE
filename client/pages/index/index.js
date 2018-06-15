@@ -67,15 +67,18 @@ Page({
             console.log(res.data)
             that.setData({ fiveDesc: "" + res.data.error, fiveTitle: "error" });
           } else {
+            const wcolors = ['#f7a35c', '#90ed7d', '#7cb5ec', '#ff0000', '#434348']
             var fa = res.data.split("@@@@@");
             that.setData({ fiveDesc: fa[1], fiveTitle: fa[0] });
-            const series = [
-              { data: 2.64 * 100, color: '#ff0000' },
-              { data: 1 * 100, color: '#90ed7d' },
-              { data: 1.2 * 100, color: '#f7a35c' },
-              { data: 0.6 * 100, color: '#7cb5ec' },
-              { data: 4.8 * 100, color: '#434348' }
-            ];
+            var f3 = fa[2].substring(0, fa[2].length - 1).split(";");
+            var i = 0
+            var series = f3.map((item) => {
+              var v = item.split(":")
+              console.log(parseFloat(v[1]))
+              return { data: parseFloat(v[1]) * 100, color: wcolors[parseInt(v[0])]};
+            });
+        
+
             animation.play({
               duration: 1000,
               onProcess: (process) => {
