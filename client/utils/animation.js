@@ -1,3 +1,4 @@
+
 export function play(opts) {
   // 处理用户传入的动画时间，默认为1000ms
   // 因为用户有可能传入duration为0，所以不能用opts.duration = opts.duration || 1000 来做默认值处理

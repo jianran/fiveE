@@ -303,9 +303,9 @@ BaziComputer.prototype.calculateBazi = function(bazi) {
 
   sResultBuf.append("\n 解析：五行的相生关系为：金生水，水生木，木生火，火生土，土生金；得到了同类和异类的强度值以后，一个基本的判断是，若两者的数值比较接近，则说明该八字比较平衡，也暗示人生平顺，取名取命属相生的字，或者命属的字；若两者数值相差较大（比如，大于1，甚至大于2），则说明五行不平衡，可以通过名字来弥补，五行中缺什么就补什么，或者将来找对象时候通过婚姻来补平；");
   if (fiveDesc == "五行平衡！") {
-    return fiveDesc + finalNameFive + "@@@@@" + sResultBuf.toString();
+    return fiveDesc + finalNameFive + "@@@@@" + sResultBuf.toString() + "@@@@@" + valueDes;
   }
-  return fiveDesc + "，取名取五行为" + finalNameFive + "的字；" + "@@@@@" + sResultBuf.toString() + "@@@@@" + valueDes;
+  return fiveDesc + "，取名取五行为" + finalNameFive + "的字；" + "@@@@@" + sResultBuf.toString() + "@@@@@" + valueDes; 
 }
 
 /**

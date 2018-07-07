@@ -17,6 +17,7 @@ var dminuter = date.getMinutes() > 9 ? "" + date.getMinutes() : "0" + date.getMi
 
 Page({
     data: {
+      loginUrl: config.service.loginUrl,
       date: dyear + "-" + dmonth + "-" + ddate,
       time: dhour + ":" + dminuter,
       sex: ['公历','阴历'],
@@ -77,14 +78,9 @@ Page({
               console.log(parseFloat(v[1]))
               return { data: parseFloat(v[1]) * 100, color: wcolors[parseInt(v[0])]};
             });
-        
+            drawPieChart.drawPieAngle(series, 1);
 
-            animation.play({
-              duration: 1000,
-              onProcess: (process) => {
-                drawPieChart.drawPieAngle(series, process);
-              }
-            });            
+                    
           }
         }
       })
@@ -149,5 +145,19 @@ Page({
             current: this.data.imgUrl,
             urls: [this.data.imgUrl]
         })
+    },
+
+    closeTunnel() {
+      if (this.tunnel) {
+        this.tunnel.close();
+      }
+
+      this.setData({ tunnelStatus: 'closed' });
+    },
+
+    openChat: function() {
+      // 微信只允许一个信道再运行，聊天室使用信道前，我们先把当前的关闭
+      this.closeTunnel();
+      wx.navigateTo({ url: '../chat/chat' });
     }
 })

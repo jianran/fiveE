@@ -13,7 +13,10 @@ var config = {
         // 上传图片接口
         uploadUrl: `${host}/weapp/upload`,
 
-        baziUrl: `${host}/weapp/bazi`
+        baziUrl: `${host}/weapp/bazi`,
+        loginUrl: `${host}/weapp/login`,
+        tunnelUrl: `${host}/weapp/tunnel`,
+        requestUrl: `${host}/weapp/user`
     }
 };
 

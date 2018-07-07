@@ -3,6 +3,11 @@
 
 <view class="container">
     <view class="tunnel">
+      <text>客服</text>
+      <contact-button type="default" size="24" session-from="weapp" >
+                </contact-button>
+     </view>
+    <view class="tunnel">
       <view class="title">宝宝出生信息</view>
     </view>
     <view class="tunnel-text"> 
