@@ -6,7 +6,7 @@ const CONF = {
     appId: 'wxa1b7573a9d3071a0',
 
     // 微信小程序 App Secret
-    appSecret: '',
+    appSecret: '84e08571c2d20d51528390eb2a836dcc',
 
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: true,
@@ -35,7 +35,7 @@ const CONF = {
          * 新加坡：sg
          * @see https://www.qcloud.com/document/product/436/6224
          */
-        region: 'cn-south',
+      region: 'ap-guangzhou',
         // Bucket 名称
         fileBucket: 'qcloudtest',
         // 文件夹
@@ -47,4 +47,4 @@ const CONF = {
     wxMessageToken: 'abcdefgh'
 }
 
-module.exports = CONF
+module.exports = process.env.NODE_ENV === 'local' ? Object.assign({}, CONF, require('./config.local')) : CONF;

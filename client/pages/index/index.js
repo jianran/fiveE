@@ -5,9 +5,6 @@ var util = require('../../utils/util.js')
 var drawPieChart = require('../../utils/drawPieChart.js')
 var animation = require('../../utils/animation.js')
 
-
-
-
 var date = new Date()
 var dyear = date.getFullYear() ;
 var dmonth = date.getMonth() + 1 > 9 ? "" + (date.getMonth() + 1): "0" + (date.getMonth() + 1);
