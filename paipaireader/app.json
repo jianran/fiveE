@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/pai"
+
+  ],
+  "window": {
+    "defaultTitle": "拍拍读绘本"
+  }
+}

@@ -1,0 +1,8 @@
+
+<view>
+   <button type="primary" onTap="onPaiTap">历史音频</button>
+   <button type="primary" onTap="selectImage" hover-class="defaultTap">选择图片</button>
+      <image
+        src="{{compressedSrc}}" 
+        mode="{{mode}}" />
+</view>
