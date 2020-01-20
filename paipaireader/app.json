@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/index/pai"
+    "pages/index/pai",
+    "pages/index/his"
 
   ],
   "window": {

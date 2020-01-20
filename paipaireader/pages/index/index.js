@@ -29,27 +29,42 @@ Page({
       url: '../index/pai'
     });
   },
+  onHisTap() {
+    my.navigateTo({
+      url: '../index/his'
+    });
+  },
   selectImage() {
     my.chooseImage({
       count: 1,
       success: (res) => {
         const path = res.apFilePaths[0];
         console.log(path);
-
-        my.uploadFile({
-          url: 'http://123.56.189.222:3000/upload',
-          fileType: 'image',
-          fileName: 'file',
-          filePath: path,
-          success: res => {
-           my.navigateTo({
-              url: '../index/pai'
-           });
-          },
-          fail: function(res) {
-            my.alert({ title: '上传失败' });
-          },
-        });
+        const ctx = my.createCanvasContext('imgCanvas');
+        ctx.drawImage(path, 0, 0, 768, 1024);
+        ctx.getImageData({
+          x: 0,
+          y: 0,
+          width: 768,
+          height: 1024,
+          success(res) {
+            console.log(res.data)
+          }
+})
+        // my.uploadFile({
+        //   url: 'http://123.56.189.222:3000/upload',
+        //   fileType: 'image',
+        //   fileName: 'file',
+        //   filePath: path,
+        //   success: res => {
+        //    my.navigateTo({
+        //       url: '../index/pai'
+        //    });
+        //   },
+        //   fail: function(res) {
+        //     my.alert({ title: '上传失败' });
+        //   },
+        // });
       }
     })
   },
